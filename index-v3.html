@@ -393,15 +393,20 @@
       position: relative;
       -webkit-tap-highlight-color: transparent;
       cursor: pointer;
-      transition: opacity .15s;
     }
     .p-card:active { opacity: 0.85; }
     .p-card__divider {
       background: var(--black);
       width: 1px;
-      height: 100%;
       z-index: 2;
       position: relative;
+      transform: scaleY(0);
+      transform-origin: center;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: 0.3s;
+    }
+    .p-card.visible .p-card__divider {
+      transform: scaleY(1);
     }
     .p-card__img {
       aspect-ratio: 3 / 4;
@@ -413,7 +418,6 @@
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: top center;
-      transition: transform .5s cubic-bezier(0.16,1,0.3,1);
     }
     .p-card__badge {
       position: absolute;
@@ -441,13 +445,21 @@
       justify-content: center;
     }
     .p-card__info {
-      grid-column: 1 / -1;
-      padding: 10px 12px 14px;
-      border-top: 1px solid var(--black);
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      border-radius: 14px;
+      padding: 14px 16px;
       opacity: 0;
       transform: translateY(8px);
       transition: opacity 0.5s ease, transform 0.5s ease;
-      background: #fff;
     }
     .p-card.visible .p-card__info {
       opacity: 1;
@@ -455,15 +467,19 @@
     }
     .p-card__name {
       font-size: 12px; font-weight: 700;
-      letter-spacing: -0.01em; text-transform: lowercase;
-      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--black);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .p-card__price {
-      font-size: 12px; font-weight: 600;
+      font-size: 12px; font-weight: 700;
       color: var(--black);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-left: 12px;
     }
     .p-card__price .sale { color: var(--red); }
     .p-card__price .was  { color: var(--mid); text-decoration: line-through; font-size: 10px; margin-left: 4px; }
@@ -1086,40 +1102,48 @@
       transform: scale(1);
     }
 
-    /* product card hover/reveal */
+    /* product card — fade in + slide up */
     .p-card {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .p-card.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* slow zoom on images after reveal */
+    /* images — zoom settle after card reveals */
     .p-card.visible .p-card__img img {
-      animation: slowZoom 8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation: imgSettle 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
-    @keyframes slowZoom {
-      from { transform: scale(1); }
-      to   { transform: scale(1.04); }
+    @keyframes imgSettle {
+      0%   { transform: scale(1.08); }
+      100% { transform: scale(1); }
     }
 
-    /* info reveals with card */
+    /* badge — pop in with delay */
+    .p-card.visible .p-card__badge {
+      animation: badgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+    }
+    @keyframes badgePop {
+      0%   { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    /* info overlay — spring bounce up */
     .p-card.visible .p-card__info {
       opacity: 1;
       transform: translateY(0);
-      transition-delay: 0.2s;
+      transition: opacity 0.4s ease 0.4s,
+                  transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
     }
 
     /* section headers */
     .sec-hd {
       opacity: 0;
       transform: translateY(16px);
-      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .sec-hd.visible {
       opacity: 1;
@@ -1321,6 +1345,313 @@
       z-index: 10;
     }
 
+    /* ══════════════════════════════════════
+       DESKTOP NAVIGATION (hidden on mobile)
+    ══════════════════════════════════════ */
+    .hdr__nav { display: none; }
+
+    /* ══════════════════════════════════════
+       DESKTOP — 768 px +
+    ══════════════════════════════════════ */
+    @media (min-width: 768px) {
+      :root {
+        --hdr-h: 64px;
+        --ann-h: 32px;
+      }
+
+      /* — Announcement — */
+      .ann { font-size: 11px; letter-spacing: 0.16em; }
+
+      /* — Header — */
+      .hdr { padding: 0 32px; }
+      .hdr__burger { display: none; }
+      .hdr__left, .hdr__right { width: auto; gap: 8px; }
+      .hdr__logo svg { height: 24px; }
+      .hdr__nav {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+      .hdr__nav a {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--black);
+        transition: color .15s;
+      }
+      .hdr__nav a:hover { color: var(--red); }
+      .hdr__icon { min-width: 40px; min-height: 40px; }
+
+      /* — Hero — */
+      .hero { min-height: 560px; }
+      .hero__info { padding: 32px 40px 40px; }
+      .hero__tag { font-size: 10px; padding: 4px 10px; margin-bottom: 10px; }
+      .hero__name { font-size: 44px; margin-bottom: 8px; }
+      .hero__price { font-size: 16px; margin-bottom: 18px; }
+      .hero__cta { font-size: 12px; padding: 16px 32px; }
+      .hero__cta:hover { transform: scale(1.04); }
+      .hero__dots { bottom: 28px; right: 28px; }
+
+      /* — Ticker — */
+      .ticker { height: 40px; }
+      .ticker__item { font-size: 11px; padding: 0 28px; }
+
+      /* — Section headers — */
+      .sec-hd { padding: 28px 32px 18px; }
+      .sec-hd__t { font-size: 22px; }
+
+      /* — Product grid — desktop 2-col layout — */
+      .p-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+      .p-card {
+        border-right: 1px solid var(--black);
+      }
+      .p-card:nth-child(2n) { border-right: none; }
+      .p-card:hover .p-card__img img {
+        transform: scale(1.04);
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .p-card__info {
+        padding: 16px 20px;
+        border-radius: 16px;
+      }
+      .p-card__name { font-size: 13px; }
+      .p-card__price { font-size: 13px; }
+
+      /* — Featured strip — */
+      .feat-strip__scroll { padding: 0 32px; gap: 16px; }
+      .feat-card {
+        min-width: 30vw; max-width: 30vw;
+        border-radius: 8px;
+      }
+      .feat-card:hover img {
+        transform: scale(1.03);
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .feat-card img { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+      .feat-card__name { font-size: 17px; }
+
+      /* — Manifesto — */
+      .manifesto { padding: 60px 32px 52px; }
+      .manifesto__big { font-size: 64px; margin-bottom: 20px; }
+      .manifesto__body { font-size: 14px; max-width: 400px; margin-bottom: 28px; }
+      .manifesto__btn { padding: 13px 28px; font-size: 12px; }
+      .manifesto__btn:hover { transform: scale(1.04); }
+
+      /* — Trust features — */
+      .feats { grid-template-columns: repeat(4, 1fr); }
+      .feat { padding: 24px 20px; }
+      .feat:nth-child(2n) { border-right: 1px solid var(--border); }
+      .feat:nth-child(4) { border-right: none; }
+      .feat:nth-child(3), .feat:nth-child(4) { border-bottom: none; }
+      .feat__icon { font-size: 22px; margin-bottom: 8px; }
+      .feat__t { font-size: 11px; }
+
+      /* — Social proof — */
+      .social__scroll { padding: 0 32px; gap: 16px; }
+      .s-reel { min-width: 36vw; max-width: 36vw; border-radius: 16px; }
+      .s-quote { min-width: 36vw; max-width: 36vw; border-radius: 16px; padding: 28px 24px; }
+      .s-quote:hover { background: #1a1a1a; }
+
+      /* — Hero dots hover — */
+      .hero__dot { cursor: pointer; transition: background .25s, height .25s, opacity .25s; }
+      .hero__dot:hover { background: rgba(255,255,255,0.7); }
+      .s-quote__text { font-size: 17px; }
+
+      /* — Footer — */
+      .footer { padding: 40px 32px 20px; }
+      .footer__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 40px;
+        margin-bottom: 24px;
+      }
+      .footer__links {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 0;
+      }
+      .footer__links a { font-size: 11px; transition: color .15s; }
+      .footer__links a:hover { color: var(--black); }
+      .footer__desc { max-width: 300px; }
+
+      /* — Bottom sheet → centered modal — */
+      .sheet {
+        position: absolute;
+        bottom: auto; top: 50%; left: 50%;
+        transform: translate(-50%, -50%) translateY(40px);
+        width: 480px;
+        max-height: 85vh;
+        border-radius: 16px;
+        opacity: 0;
+        transition: transform .45s cubic-bezier(0.16,1,0.3,1),
+                    opacity .35s cubic-bezier(0.16,1,0.3,1) !important;
+      }
+      .sheet-overlay.open .sheet {
+        transform: translate(-50%, -50%) translateY(0);
+        opacity: 1;
+      }
+      .sheet__handle-wrap { display: none; }
+      .sheet__content { padding: 20px 24px 28px; }
+      .sheet__img { border-radius: 10px; }
+      .sheet__name { font-size: 26px; }
+      .sheet__atc:hover { background: #333; }
+      .sheet__full:hover { border-color: var(--black); color: var(--black); }
+
+      /* full state on desktop */
+      .sheet.full {
+        height: 85vh;
+        max-height: 85vh;
+        border-radius: 16px;
+        width: 540px;
+      }
+
+      /* — Search overlay — */
+      .search-overlay {
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .search-bar { padding: 20px 32px; }
+      .search-bar input { font-size: 18px; }
+      .search-hints { padding: 24px 32px; }
+
+      /* — Menu overlay — hide on desktop — */
+      .menu-overlay { display: none; }
+
+      /* — Toast — */
+      .toast { font-size: 13px; padding: 12px 24px; }
+    }
+
+    /* ══════════════════════════════════════
+       DESKTOP — 1024 px +
+    ══════════════════════════════════════ */
+    @media (min-width: 1024px) {
+      :root {
+        --hdr-h: 68px;
+      }
+
+      /* — Header — */
+      .hdr { padding: 0 48px; }
+      .hdr__logo svg { height: 26px; }
+      .hdr__nav { gap: 40px; }
+
+      /* — Hero — */
+      .hero { min-height: 640px; }
+      .hero__info { padding: 40px 56px 52px; }
+      .hero__name { font-size: 56px; }
+      .hero__price { font-size: 18px; }
+      .hero__cta { font-size: 12px; padding: 16px 36px; }
+      .hero__slide img {
+        transform: translate(-50%, -50%) scale(1.5);
+        transition: transform 8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .hero__slide:hover img {
+        transform: translate(-50%, -50%) scale(1.6);
+      }
+      .hero__scroll {
+        scroll-behavior: smooth;
+      }
+
+      /* — Section headers — */
+      .sec-hd { padding: 32px 48px 20px; }
+      .sec-hd__t { font-size: 26px; }
+      .sec-hd__l { font-size: 11px; }
+
+      /* — Product grid — 3-col on large — */
+      .p-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .p-card { border-right: 1px solid var(--black); }
+      .p-card:nth-child(2n) { border-right: 1px solid var(--black); }
+      .p-card:nth-child(3n) { border-right: none; }
+
+      /* — Featured strip — */
+      .feat-strip__scroll {
+        padding: 0 48px;
+        gap: 20px;
+        overflow-x: visible;
+        justify-content: center;
+      }
+      .feat-card {
+        min-width: 0; max-width: none;
+        flex: 1;
+        max-width: 320px;
+        border-radius: 10px;
+      }
+
+      /* — Manifesto — */
+      .manifesto { padding: 80px 48px 68px; }
+      .manifesto__eye { font-size: 10px; letter-spacing: 0.25em; margin-bottom: 20px; }
+      .manifesto__big { font-size: 80px; margin-bottom: 24px; }
+      .manifesto__body { font-size: 15px; max-width: 440px; margin-bottom: 32px; }
+
+      /* — Trust features — */
+      .feat { padding: 28px 24px; }
+      .feat__icon { font-size: 24px; }
+      .feat__t { font-size: 11px; margin-bottom: 4px; }
+      .feat__sub { font-size: 11px; }
+
+      /* — Social proof — */
+      .social__scroll {
+        padding: 0 48px;
+        gap: 20px;
+        overflow-x: visible;
+        justify-content: center;
+      }
+      .s-reel {
+        min-width: 0; max-width: none;
+        flex: 1;
+        max-width: 280px;
+        aspect-ratio: 9 / 14;
+      }
+      .s-quote {
+        min-width: 0; max-width: none;
+        flex: 1;
+        max-width: 280px;
+        padding: 32px 28px;
+      }
+      .s-quote__text { font-size: 16px; }
+
+      /* — Footer — */
+      .footer { padding: 48px 48px 24px; }
+      .footer__logo svg { height: 22px; }
+      .footer__desc { max-width: 360px; font-size: 12px; }
+      .footer__links a { font-size: 11px; }
+
+      /* — Modal — */
+      .sheet { width: 520px; }
+      .sheet.full { width: 580px; }
+
+      /* — Search — */
+      .search-bar { padding: 24px 48px; max-width: 720px; margin: 0 auto; }
+      .search-hints { max-width: 720px; margin: 0 auto; padding: 28px 48px; }
+    }
+
+    /* ══════════════════════════════════════
+       DESKTOP — 1400 px + (widescreen)
+    ══════════════════════════════════════ */
+    @media (min-width: 1400px) {
+      .hdr { padding: 0 64px; max-width: 1600px; margin: 0 auto; }
+      .hero__info { padding: 48px 72px 60px; }
+      .hero__name { font-size: 64px; }
+      .sec-hd { padding: 36px 64px 22px; }
+      .sec-hd__t { font-size: 28px; }
+      .feat-strip__scroll { padding: 0 64px; gap: 24px; }
+      .feat-card { max-width: 360px; }
+      .manifesto { padding: 100px 64px 84px; }
+      .manifesto__big { font-size: 96px; }
+      .manifesto__body { font-size: 16px; max-width: 480px; }
+      .social__scroll { padding: 0 64px; gap: 24px; }
+      .s-reel, .s-quote { max-width: 300px; }
+      .footer { padding: 56px 64px 28px; max-width: 1600px; margin: 0 auto; }
+    }
+
   </style>
 </head>
 <body class="locked">
@@ -1401,6 +1732,13 @@
       <path class="cls-1" d="M1509.52,527.27c1.33-7.5,2.29-14,3.78-20.4a5.5,5.5,0,0,1,4-3.3c7-.2,14,0,21,.36,4.49.25,8.94,1.66,9.86,6.79,1,5.59-1.22,10.76-6.37,12.88s-11,2.9-16.66,3.55C1520.26,527.71,1515.3,527.27,1509.52,527.27Z"/>
     </svg>
   </a>
+
+  <nav class="hdr__nav">
+    <a href="#">shop</a>
+    <a href="story.html">our story</a>
+    <a href="returns.html">returns</a>
+    <a href="contact.html">contact</a>
+  </nav>
 
   <div class="hdr__right">
     <button class="hdr__icon" id="searchBtn" aria-label="Search">
@@ -1694,14 +2032,18 @@
       <path class="cls-1" d="M1509.52,527.27c1.33-7.5,2.29-14,3.78-20.4a5.5,5.5,0,0,1,4-3.3c7-.2,14,0,21,.36,4.49.25,8.94,1.66,9.86,6.79,1,5.59-1.22,10.76-6.37,12.88s-11,2.9-16.66,3.55C1520.26,527.71,1515.3,527.27,1509.52,527.27Z"/>
     </svg>
   </div>
-  <p class="footer__desc">bold graphics. oversized fits. perfect is boring. — india.</p>
-  <div class="footer__links">
-    <a href="#">shop all</a>
-    <a href="story.html">about</a>
-    <a href="returns.html">returns</a>
-    <a href="contact.html">contact</a>
-    <a href="https://instagram.com/whyclub.in" target="_blank">instagram</a>
-    <a href="returns.html">size guide</a>
+  <div class="footer__inner">
+    <div>
+      <p class="footer__desc">bold graphics. oversized fits. perfect is boring. — india.</p>
+    </div>
+    <div class="footer__links">
+      <a href="#">shop all</a>
+      <a href="story.html">about</a>
+      <a href="returns.html">returns</a>
+      <a href="contact.html">contact</a>
+      <a href="https://instagram.com/whyclub.in" target="_blank">instagram</a>
+      <a href="returns.html">size guide</a>
+    </div>
   </div>
   <div class="footer__copy">© 2026 whÿclub — perfect is boring</div>
 </footer>
@@ -1861,6 +2203,14 @@
     const idx = Math.round(heroScroll.scrollLeft / heroScroll.offsetWidth);
     dots.forEach((d, i) => d.classList.toggle('active', i === idx));
   }, { passive: true });
+
+  /* ── Clickable hero dots (desktop) ── */
+  dots.forEach((dot, i) => {
+    dot.style.cursor = 'pointer';
+    dot.addEventListener('click', () => {
+      heroScroll.scrollTo({ left: heroScroll.offsetWidth * i, behavior: 'smooth' });
+    });
+  });
 
   /* ── Bottom sheet ── */
   const sheetOverlay = document.getElementById('sheetOverlay');
