@@ -1,0 +1,19 @@
+---
+import CheckoutExperience from "@/components/checkout/CheckoutExperience";
+import StorefrontLayout from "@/layouts/StorefrontLayout.astro";
+import { demoProducts, getProductBySlug } from "@/lib/demo-data";
+
+const selectedProduct =
+  getProductBySlug(Astro.url.searchParams.get("product") ?? "") ?? null;
+---
+
+<StorefrontLayout
+  title="WhÿClub | checkout"
+  description="Client-driven checkout for the Astro + Convex storefront, with secure server-side order creation and Razorpay handoff."
+>
+  <CheckoutExperience
+    client:load
+    initialProductSlug={selectedProduct?.slug}
+    demoProducts={demoProducts}
+  />
+</StorefrontLayout>

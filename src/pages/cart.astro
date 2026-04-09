@@ -1,0 +1,11 @@
+---
+import CartExperience from "@/components/cart/CartExperience";
+import StorefrontLayout from "@/layouts/StorefrontLayout.astro";
+---
+
+<StorefrontLayout
+  title="WhÿClub | cart"
+  description="Review the current WhyClub basket before moving into checkout."
+>
+  <CartExperience client:load />
+</StorefrontLayout>

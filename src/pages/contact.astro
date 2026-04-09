@@ -1,0 +1,36 @@
+---
+import SectionHeader from "@/components/storefront/SectionHeader.astro";
+import StorefrontLayout from "@/layouts/StorefrontLayout.astro";
+import { contactFaqs, siteCopy } from "@/lib/demo-data";
+---
+
+<StorefrontLayout title="WhÿClub | contact">
+  <section class="store-shell mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-16">
+    <div class="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+      <article class="rounded-[2rem] border border-black bg-black p-8 text-white">
+        <p class="text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-red-400">contact</p>
+        <h1 class="mt-4 text-4xl font-black uppercase leading-[0.88] tracking-[-0.06em] md:text-6xl">
+          Need sizing help, a return, or just want to say hi?
+        </h1>
+        <div class="mt-8 grid gap-4 text-sm leading-7 text-neutral-300">
+          <p>Email: <a class="text-white" href={`mailto:${siteCopy.supportEmail}`}>{siteCopy.supportEmail}</a></p>
+          <p>Instagram: <a class="text-white" href="https://instagram.com/whyclub.in" target="_blank" rel="noreferrer">{siteCopy.instagramHandle}</a></p>
+          <p>WhatsApp: <a class="text-white" href={siteCopy.whatsappUrl} target="_blank" rel="noreferrer">open chat</a></p>
+          <p>Support replies currently target a 24-hour turnaround.</p>
+        </div>
+      </article>
+
+      <article class="rounded-[2rem] border border-black bg-white p-8">
+        <SectionHeader eyebrow="faq" title="The quick answers." />
+        <div class="mt-8 grid gap-4">
+          {contactFaqs.map((item) => (
+            <article class="rounded-[1.5rem] border border-black/10 bg-[#f7f4ef] p-5">
+              <h2 class="text-lg font-black uppercase tracking-[0.04em] text-black">{item.question}</h2>
+              <p class="mt-3 text-sm leading-7 text-neutral-600">{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </article>
+    </div>
+  </section>
+</StorefrontLayout>

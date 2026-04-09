@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --store-red: #e00000;
+  --store-black: #111111;
+  --store-off: #f6f1e8;
+  --store-cream: #fffdf8;
+  --store-border: rgba(17, 17, 17, 0.12);
+}
+
+html {
+  background: var(--store-off);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.96), transparent 38%),
+    linear-gradient(180deg, #f9f5ee 0%, #f3ede3 100%);
+  color: var(--store-black);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.store-shell {
+  position: relative;
+}
+
+.store-panel {
+  border: 1px solid var(--store-black);
+  background: color-mix(in srgb, var(--store-cream) 92%, white);
+  box-shadow: 0 30px 80px rgba(17, 17, 17, 0.06);
+}
+
+.store-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  background: rgba(255, 255, 255, 0.88);
+  padding: 0.9rem 1.25rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--store-black);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.store-btn:hover {
+  border-color: var(--store-black);
+  transform: translateY(-1px);
+}
+
+.store-btn--dark {
+  border-color: var(--store-black);
+  background: var(--store-black);
+  color: white;
+}
+
+.store-btn--dark:hover {
+  background: #1e1e1e;
+}
+
+.store-btn--ghost {
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.store-btn--inverse {
+  border-color: white;
+  background: white;
+  color: var(--store-black);
+}
+
+.store-btn--outline-light {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: white;
+}
+
+.store-btn--outline-light:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.store-marquee {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+  white-space: nowrap;
+  animation: store-marquee 24s linear infinite;
+}
+
+@keyframes store-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.store-grid-line {
+  background-image:
+    linear-gradient(to right, rgba(17, 17, 17, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 17, 17, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
