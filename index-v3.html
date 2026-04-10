@@ -1443,82 +1443,59 @@
     .mystery {
       position: fixed; inset: 0;
       z-index: 9997;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
       transition: opacity .4s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .mystery.show { opacity: 1; pointer-events: all; }
     .mystery__card {
-      width: 320px;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 20px;
-      padding: 28px 24px;
+      width: calc(100% - 40px);
+      max-width: 340px;
+      background: var(--black);
+      border-radius: 24px;
+      padding: 32px 24px 28px;
       text-align: center;
-      transform: scale(0.92) translateY(20px);
-      transition: transform .45s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: scale(0.88) translateY(30px);
+      transition: transform .5s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
     }
     .mystery.show .mystery__card { transform: scale(1) translateY(0); }
-    .mystery__emoji { font-size: 36px; margin-bottom: 8px; }
+    /* shimmer edge */
+    .mystery__card::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 24px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.03), rgba(255,255,255,0.1));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events: none;
+    }
     .mystery__title {
-      font-size: 20px; font-weight: 900;
-      letter-spacing: -0.03em;
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 6px;
+    }
+    .mystery__headline {
+      font-size: 26px; font-weight: 900;
+      letter-spacing: -0.04em;
       text-transform: lowercase;
-      margin-bottom: 4px;
-      color: var(--black);
-    }
-    .mystery__sub {
-      font-size: 12px; color: var(--mid);
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-    /* email step */
-    .mystery__email-step { margin-bottom: 16px; }
-    .mystery__input {
-      width: 100%;
-      height: 48px;
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 12px;
-      padding: 0 16px;
-      font-size: 13px; font-weight: 500;
-      color: var(--black);
-      margin-bottom: 10px;
-      font-family: 'Inter', sans-serif;
-    }
-    .mystery__input::placeholder { color: var(--mid); }
-    .mystery__unlock {
-      width: 100%;
-      height: 48px;
-      background: rgba(0,0,0,0.82);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(0,0,0,0.15);
       color: #fff;
-      font-size: 12px; font-weight: 800;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      border-radius: 14px;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      transition: transform .15s;
+      line-height: 1.1;
+      margin-bottom: 20px;
     }
-    .mystery__unlock:active { transform: scale(0.97); }
-    /* scratch step */
-    .mystery__scratch-step { display: none; }
+    /* scratch area */
     .mystery__scratch-wrap {
       position: relative;
-      width: 260px; height: 120px;
+      width: 100%; height: 160px;
       margin: 0 auto 16px;
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
-      border: 1px solid rgba(0,0,0,0.08);
       cursor: grab;
       touch-action: none;
     }
@@ -1527,20 +1504,19 @@
       position: absolute; inset: 0;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: #fff;
     }
     .mystery__discount {
-      font-size: 36px; font-weight: 900;
-      letter-spacing: -0.03em;
+      font-size: 52px; font-weight: 900;
+      letter-spacing: -0.04em;
       color: var(--black);
+      line-height: 1;
     }
     .mystery__discount-label {
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--mid);
-      margin-top: 2px;
+      margin-top: 4px;
     }
     .mystery__scratch-canvas {
       position: absolute; inset: 0;
@@ -1548,62 +1524,66 @@
       z-index: 2;
     }
     .mystery__hint {
-      font-size: 11px; color: var(--mid);
-      margin-bottom: 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 6px;
+      transition: color .3s, font-weight .3s;
     }
-    /* revealed state */
-    .mystery__code-row {
+    /* after reveal */
+    .mystery__result {
       display: none;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 12px;
+      margin-top: 4px;
     }
-    .mystery__code-row.show { display: flex; }
-    .mystery__code-val {
-      font-size: 16px; font-weight: 900;
-      letter-spacing: 0.12em;
-      background: rgba(0,0,0,0.06);
+    .mystery__result.show { display: flex; }
+    .mystery__code-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 12px;
-      padding: 10px 20px;
-      color: var(--black);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 10px 14px 10px 18px;
+    }
+    .mystery__code-val {
+      font-size: 15px; font-weight: 900;
+      letter-spacing: 0.14em;
+      color: #fff;
     }
     .mystery__copy {
-      width: 40px; height: 40px;
-      background: rgba(0,0,0,0.06);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.1);
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
       transition: background .15s;
+      color: #fff;
     }
-    .mystery__copy:active { background: rgba(0,0,0,0.12); }
-    .mystery__done {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--mid);
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 12px;
-      padding: 0 16px;
-      min-height: 44px;
-      display: inline-flex; align-items: center;
+    .mystery__copy:active { background: rgba(255,255,255,0.2); }
+    .mystery__apply {
+      width: 100%;
+      height: 50px;
+      background: #fff;
+      color: var(--black);
+      font-size: 12px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 14px;
       cursor: pointer;
+      transition: transform .15s;
+      font-family: 'Inter', sans-serif;
     }
-    .mystery__skip {
+    .mystery__apply:active { transform: scale(0.97); }
+    .mystery__dismiss {
       font-size: 11px; font-weight: 600;
-      color: var(--mid);
-      margin-top: 12px;
+      color: rgba(255,255,255,0.3);
       cursor: pointer;
-      opacity: 0.6;
+      padding: 4px 0;
     }
 
     /* ── Long press tilt ── */
@@ -2420,31 +2400,24 @@
 <!-- Mystery Scratch Card -->
 <div class="mystery" id="mysteryOverlay">
   <div class="mystery__card">
-    <div class="mystery__emoji">🎁</div>
-    <div class="mystery__title">unlock a mystery discount</div>
-    <div class="mystery__sub">enter your email to reveal your exclusive discount. it could be anything from 5% to 40% off.</div>
-    <!-- Step 1: Email -->
-    <div class="mystery__email-step" id="mysteryEmailStep">
-      <input class="mystery__input" id="mysteryEmail" type="email" placeholder="your email address" autocomplete="email" />
-      <button class="mystery__unlock" id="mysteryUnlock">reveal my discount →</button>
-      <div class="mystery__skip" id="mysterySkip">no thanks, i'll pay full price</div>
-    </div>
-    <!-- Step 2: Scratch -->
-    <div class="mystery__scratch-step" id="mysteryScratchStep">
-      <div class="mystery__scratch-wrap" id="mysteryScratchWrap">
-        <div class="mystery__reveal">
-          <div class="mystery__discount" id="mysteryDiscount">25%</div>
-          <div class="mystery__discount-label">off your order</div>
-        </div>
-        <canvas class="mystery__scratch-canvas" id="mysteryScratchCanvas"></canvas>
+    <div class="mystery__title">you've got a gift</div>
+    <div class="mystery__headline">scratch to reveal<br>your discount</div>
+    <div class="mystery__scratch-wrap" id="mysteryScratchWrap">
+      <div class="mystery__reveal">
+        <div class="mystery__discount" id="mysteryDiscount">25%</div>
+        <div class="mystery__discount-label">off your order</div>
       </div>
-      <div class="mystery__hint" id="mysteryHint">scratch to reveal ↑</div>
-      <div class="mystery__code-row" id="mysteryCodeRow">
+      <canvas class="mystery__scratch-canvas" id="mysteryScratchCanvas"></canvas>
+    </div>
+    <div class="mystery__hint" id="mysteryHint">use your finger or mouse to scratch</div>
+    <div class="mystery__result" id="mysteryResult">
+      <div class="mystery__code-pill">
         <span class="mystery__code-val" id="mysteryCodeVal">WHY25</span>
         <button class="mystery__copy" id="mysteryCopy">📋</button>
       </div>
-      <button class="mystery__done" id="mysteryDone" style="display:none;">apply & continue shopping</button>
+      <button class="mystery__apply" id="mysteryApply">apply discount</button>
     </div>
+    <div class="mystery__dismiss" id="mysteryDismiss">no thanks</div>
   </div>
 </div>
 
@@ -2846,18 +2819,13 @@
   /* ═══════════════════════════════════
      MYSTERY SCRATCH CARD
   ═══════════════════════════════════ */
-  const mysteryOverlay   = document.getElementById('mysteryOverlay');
-  const mysteryEmailStep = document.getElementById('mysteryEmailStep');
-  const mysteryScratchStep = document.getElementById('mysteryScratchStep');
-  const mysteryEmailInput = document.getElementById('mysteryEmail');
-  const mysteryCanvas    = document.getElementById('mysteryScratchCanvas');
-  const mysteryHint      = document.getElementById('mysteryHint');
-  const mysteryCodeRow   = document.getElementById('mysteryCodeRow');
-  const mysteryDone      = document.getElementById('mysteryDone');
+  const mysteryOverlay = document.getElementById('mysteryOverlay');
+  const mysteryCanvas  = document.getElementById('mysteryScratchCanvas');
+  const mysteryHint    = document.getElementById('mysteryHint');
+  const mysteryResult  = document.getElementById('mysteryResult');
   let mysteryUsed = false;
   let mysteryRevealed = false;
 
-  // discount tiers — weighted so bigger discounts are rarer
   const discountTiers = [
     { pct: 5,  code: 'WHY5',  weight: 10 },
     { pct: 10, code: 'WHY10', weight: 30 },
@@ -2870,10 +2838,7 @@
   function pickDiscount() {
     const total = discountTiers.reduce((s, d) => s + d.weight, 0);
     let r = Math.random() * total;
-    for (const d of discountTiers) {
-      r -= d.weight;
-      if (r <= 0) return d;
-    }
+    for (const d of discountTiers) { r -= d.weight; if (r <= 0) return d; }
     return discountTiers[1];
   }
   const chosenDiscount = pickDiscount();
@@ -2884,27 +2849,10 @@
     document.getElementById('mysteryDiscount').textContent = chosenDiscount.pct + '%';
     document.getElementById('mysteryCodeVal').textContent = chosenDiscount.code;
     mysteryOverlay.classList.add('show');
-    initScratchCanvas();
+    // tiny delay so the card animates in first
+    setTimeout(() => initScratchCanvas(), 500);
   }
 
-  // email → scratch transition
-  document.getElementById('mysteryUnlock').addEventListener('click', () => {
-    const email = mysteryEmailInput.value.trim();
-    if (!email || !email.includes('@')) {
-      mysteryEmailInput.style.borderColor = 'var(--red)';
-      mysteryEmailInput.focus();
-      return;
-    }
-    mysteryEmailStep.style.display = 'none';
-    mysteryScratchStep.style.display = 'block';
-  });
-
-  // skip
-  document.getElementById('mysterySkip').addEventListener('click', () => {
-    mysteryOverlay.classList.remove('show');
-  });
-
-  // scratch canvas
   function initScratchCanvas() {
     const wrap = document.getElementById('mysteryScratchWrap');
     const w = wrap.offsetWidth;
@@ -2915,44 +2863,67 @@
     mysteryCanvas.style.height = h + 'px';
     const ctx = mysteryCanvas.getContext('2d');
     ctx.scale(2, 2);
-    // draw the scratch surface — frosted glass look
-    ctx.fillStyle = '#e8e8e8';
+
+    // golden metallic scratch surface
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0, '#c9a84c');
+    grad.addColorStop(0.3, '#f0d68a');
+    grad.addColorStop(0.5, '#dfc362');
+    grad.addColorStop(0.7, '#f0d68a');
+    grad.addColorStop(1, '#b8943d');
+    ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
-    // add subtle pattern
-    ctx.fillStyle = '#ddd';
-    for (let i = 0; i < 60; i++) {
+
+    // subtle sparkle dots
+    for (let i = 0; i < 80; i++) {
       const x = Math.random() * w;
       const y = Math.random() * h;
+      const r = Math.random() * 1.5 + 0.5;
       ctx.beginPath();
-      ctx.arc(x, y, Math.random() * 8 + 2, 0, Math.PI * 2);
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.4 + 0.1})`;
       ctx.fill();
     }
-    // question marks
-    ctx.fillStyle = '#bbb';
-    ctx.font = '800 28px Inter, sans-serif';
+
+    // text
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('? ? ?', w / 2, h / 2 - 8);
-    ctx.font = '600 11px Inter, sans-serif';
-    ctx.fillStyle = '#999';
-    ctx.fillText('SCRATCH HERE', w / 2, h / 2 + 18);
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.font = '900 32px Inter, sans-serif';
+    ctx.fillText('? ? ?', w / 2, h / 2 - 6);
+    ctx.font = '700 10px Inter, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.letterSpacing = '0.12em';
+    ctx.fillText('SCRATCH HERE', w / 2, h / 2 + 22);
 
     ctx.globalCompositeOperation = 'destination-out';
 
     let scratching = false;
-    let totalPixels = w * h * 4;
+    let lastPos = null;
 
     function getPos(e) {
       const rect = mysteryCanvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return { x: clientX - rect.left, y: clientY - rect.top };
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: cx - rect.left, y: cy - rect.top };
     }
 
     function scratch(pos) {
-      ctx.beginPath();
-      ctx.arc(pos.x, pos.y, 22, 0, Math.PI * 2);
-      ctx.fill();
+      // draw a line from last position for smooth strokes
+      if (lastPos) {
+        ctx.lineWidth = 44;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(lastPos.x, lastPos.y);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      } else {
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 22, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      lastPos = pos;
       checkReveal();
     }
 
@@ -2964,42 +2935,47 @@
         if (imgData.data[i] === 0) cleared++;
       }
       const pct = cleared / (imgData.data.length / 4);
-      if (pct > 0.45) {
+      if (pct > 0.4) {
         mysteryRevealed = true;
-        mysteryCanvas.style.transition = 'opacity .5s';
+        mysteryCanvas.style.transition = 'opacity .6s ease';
         mysteryCanvas.style.opacity = '0';
-        mysteryHint.textContent = '🎉 you got ' + chosenDiscount.pct + '% off!';
-        mysteryHint.style.color = 'var(--black)';
-        mysteryHint.style.fontWeight = '700';
-        mysteryCodeRow.classList.add('show');
-        mysteryDone.style.display = 'inline-flex';
+        mysteryHint.textContent = 'you got ' + chosenDiscount.pct + '% off!';
+        mysteryHint.style.color = '#fff';
+        mysteryHint.style.fontWeight = '800';
+        mysteryResult.classList.add('show');
         if (navigator.vibrate) navigator.vibrate([30, 20, 30, 20, 50]);
         spawnConfetti(window.innerWidth / 2, window.innerHeight / 2);
       }
     }
 
-    mysteryCanvas.addEventListener('mousedown', (e) => { scratching = true; scratch(getPos(e)); });
-    mysteryCanvas.addEventListener('mousemove', (e) => { if (scratching) scratch(getPos(e)); });
-    mysteryCanvas.addEventListener('mouseup', () => { scratching = false; });
-    mysteryCanvas.addEventListener('mouseleave', () => { scratching = false; });
-    mysteryCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); scratching = true; scratch(getPos(e)); }, { passive: false });
-    mysteryCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (scratching) scratch(getPos(e)); }, { passive: false });
-    mysteryCanvas.addEventListener('touchend', () => { scratching = false; });
+    mysteryCanvas.addEventListener('mousedown', e => { scratching = true; lastPos = null; scratch(getPos(e)); });
+    mysteryCanvas.addEventListener('mousemove', e => { if (scratching) scratch(getPos(e)); });
+    mysteryCanvas.addEventListener('mouseup', () => { scratching = false; lastPos = null; });
+    mysteryCanvas.addEventListener('mouseleave', () => { scratching = false; lastPos = null; });
+    mysteryCanvas.addEventListener('touchstart', e => { e.preventDefault(); scratching = true; lastPos = null; scratch(getPos(e)); }, { passive: false });
+    mysteryCanvas.addEventListener('touchmove', e => { e.preventDefault(); if (scratching) scratch(getPos(e)); }, { passive: false });
+    mysteryCanvas.addEventListener('touchend', () => { scratching = false; lastPos = null; });
   }
 
   // copy code
   document.getElementById('mysteryCopy').addEventListener('click', () => {
     const code = document.getElementById('mysteryCodeVal').textContent;
     navigator.clipboard.writeText(code).then(() => {
-      document.getElementById('mysteryCopy').textContent = '✓';
-      setTimeout(() => { document.getElementById('mysteryCopy').textContent = '📋'; }, 1500);
+      const btn = document.getElementById('mysteryCopy');
+      btn.textContent = '✓';
+      setTimeout(() => { btn.textContent = '📋'; }, 1500);
     });
   });
 
-  // done
-  document.getElementById('mysteryDone').addEventListener('click', () => {
+  // apply
+  document.getElementById('mysteryApply').addEventListener('click', () => {
     mysteryOverlay.classList.remove('show');
-    showToast('code ' + chosenDiscount.code + ' applied!');
+    showToast('code ' + chosenDiscount.code + ' ready to use!');
+  });
+
+  // dismiss
+  document.getElementById('mysteryDismiss').addEventListener('click', () => {
+    mysteryOverlay.classList.remove('show');
   });
 
   /* ═══════════════════════════════════
