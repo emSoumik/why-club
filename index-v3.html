@@ -1593,6 +1593,238 @@
     }
 
     /* ══════════════════════════════════════
+       PROFILE / BINDER
+    ══════════════════════════════════════ */
+    .profile-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: #fff;
+      pointer-events: none; opacity: 0;
+      transition: opacity .3s;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+    .profile-overlay.open { pointer-events: all; opacity: 1; }
+    .profile__bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 2;
+    }
+    .profile__bar-title {
+      font-size: 16px; font-weight: 900;
+      letter-spacing: -0.02em; text-transform: lowercase;
+    }
+    .profile__close {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--black);
+      background: rgba(0,0,0,0.04);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    /* user card */
+    .profile__user {
+      padding: 28px 20px 24px;
+      text-align: center;
+    }
+    .profile__avatar {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: var(--black);
+      color: #fff;
+      font-size: 22px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .profile__name {
+      font-size: 20px; font-weight: 900;
+      letter-spacing: -0.03em; text-transform: lowercase;
+      margin-bottom: 4px;
+    }
+    .profile__joined {
+      font-size: 11px; color: var(--mid);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    /* stats row */
+    .profile__stats {
+      display: flex;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .profile__stat {
+      flex: 1;
+      text-align: center;
+      padding: 16px 8px;
+    }
+    .profile__stat:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .profile__stat-num {
+      font-size: 22px; font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 2px;
+    }
+    .profile__stat-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mid);
+    }
+    /* binder section */
+    .binder {
+      padding: 20px 18px 40px;
+    }
+    .binder__hd {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .binder__title {
+      font-size: 18px; font-weight: 900;
+      letter-spacing: -0.03em; text-transform: lowercase;
+    }
+    .binder__count {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mid);
+      background: rgba(0,0,0,0.04);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px;
+      padding: 5px 10px;
+    }
+    /* drop group */
+    .drop {
+      margin-bottom: 28px;
+    }
+    .drop__header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .drop__name {
+      font-size: 14px; font-weight: 800;
+      letter-spacing: -0.02em; text-transform: lowercase;
+    }
+    .drop__date {
+      font-size: 10px; font-weight: 600;
+      color: var(--mid);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .drop__progress {
+      height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .drop__progress-fill {
+      height: 100%;
+      background: var(--black);
+      border-radius: 3px;
+      transition: width .6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .drop__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    /* binder card */
+    .binder-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .binder-card__img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .binder-card__info {
+      position: absolute;
+      bottom: 6px; left: 6px; right: 6px;
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+    .binder-card__name {
+      font-size: 9px; font-weight: 800;
+      text-transform: lowercase;
+      letter-spacing: 0.02em;
+      color: var(--black);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .binder-card__status {
+      font-size: 8px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-top: 1px;
+    }
+    .binder-card--collected .binder-card__status {
+      color: #1a8d1a;
+    }
+    .binder-card--collected .binder-card__status::before {
+      content: '✓ ';
+    }
+    /* locked state */
+    .binder-card--locked .binder-card__img {
+      filter: grayscale(1) brightness(0.7);
+    }
+    .binder-card--locked .binder-card__info {
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-color: rgba(255,255,255,0.08);
+    }
+    .binder-card--locked .binder-card__name {
+      color: rgba(255,255,255,0.7);
+    }
+    .binder-card--locked .binder-card__status {
+      color: rgba(255,255,255,0.4);
+    }
+    .binder-card--locked .binder-card__status::before {
+      content: '🔒 ';
+    }
+    .binder-card--locked::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        135deg,
+        transparent,
+        transparent 8px,
+        rgba(0,0,0,0.03) 8px,
+        rgba(0,0,0,0.03) 10px
+      );
+      pointer-events: none;
+    }
+    /* completed drop badge */
+    .drop__complete-badge {
+      display: none;
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #1a8d1a;
+      background: rgba(26,141,26,0.08);
+      border: 1px solid rgba(26,141,26,0.15);
+      border-radius: 8px;
+      padding: 4px 8px;
+    }
+    .drop--complete .drop__complete-badge { display: inline-flex; }
+    .drop--complete .drop__date { display: none; }
+
+    /* ══════════════════════════════════════
        CART DRAWER
     ══════════════════════════════════════ */
     .cart-overlay {
@@ -1952,6 +2184,14 @@
       /* — Menu overlay — hide on desktop — */
       .menu-overlay { display: none; }
 
+      /* — Profile/Binder — */
+      .profile__bar { padding: 18px 32px; }
+      .profile__user { padding: 32px 32px 28px; }
+      .binder { padding: 24px 32px 48px; }
+      .drop__grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+      .binder-card:hover { transform: scale(1.03); }
+      .binder-card { transition: transform .2s; }
+
       /* — Toast — */
       .toast { font-size: 13px; padding: 12px 24px; }
     }
@@ -2059,6 +2299,14 @@
       /* — Search — */
       .search-bar { padding: 24px 48px; max-width: 720px; margin: 0 auto; }
       .search-hints { max-width: 720px; margin: 0 auto; padding: 28px 48px; }
+
+      /* — Profile/Binder — */
+      .profile__bar { padding: 20px 48px; }
+      .profile__user { padding: 36px 48px 32px; }
+      .binder { padding: 28px 48px 56px; max-width: 900px; margin: 0 auto; }
+      .drop__grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .binder-card__name { font-size: 10px; }
+      .binder-card__status { font-size: 9px; }
     }
 
     /* ══════════════════════════════════════
@@ -2163,6 +2411,7 @@
 
   <nav class="hdr__nav">
     <a href="#">shop</a>
+    <a href="#" id="navBinder">binder</a>
     <a href="story.html">our story</a>
     <a href="returns.html">returns</a>
     <a href="contact.html">contact</a>
@@ -2171,6 +2420,9 @@
   <div class="hdr__right">
     <button class="hdr__icon" id="searchBtn" aria-label="Search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="hdr__icon" id="profileBtn" aria-label="Profile">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </button>
     <button class="hdr__icon" id="cartBtn" aria-label="Cart">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -2501,6 +2753,7 @@
     </div>
     <div class="menu__links">
       <a class="menu__link" href="index.html">shop</a>
+      <a class="menu__link" href="#" id="menuBinder">my binder</a>
       <a class="menu__link" href="story.html">our story</a>
       <a class="menu__link" href="returns.html">returns & exchange</a>
       <a class="menu__link" href="contact.html">contact</a>
@@ -2574,6 +2827,40 @@
       <span class="search-hint-tag">yellow tee</span>
       <span class="search-hint-tag">oversized</span>
     </div>
+  </div>
+</div>
+
+<!-- Profile / Binder -->
+<div class="profile-overlay" id="profileOverlay">
+  <div class="profile__bar">
+    <span class="profile__bar-title">profile</span>
+    <button class="profile__close" id="profileClose">close</button>
+  </div>
+  <div class="profile__user">
+    <div class="profile__avatar" id="profileAvatar">W</div>
+    <div class="profile__name" id="profileName">why member</div>
+    <div class="profile__joined">member since 2024</div>
+  </div>
+  <div class="profile__stats">
+    <div class="profile__stat">
+      <div class="profile__stat-num" id="statCollected">0</div>
+      <div class="profile__stat-label">collected</div>
+    </div>
+    <div class="profile__stat">
+      <div class="profile__stat-num" id="statDrops">0</div>
+      <div class="profile__stat-label">drops</div>
+    </div>
+    <div class="profile__stat">
+      <div class="profile__stat-num" id="statCompletion">0%</div>
+      <div class="profile__stat-label">completion</div>
+    </div>
+  </div>
+  <div class="binder">
+    <div class="binder__hd">
+      <span class="binder__title">your binder</span>
+      <span class="binder__count" id="binderCount">0 / 0</span>
+    </div>
+    <div id="binderDrops"></div>
   </div>
 </div>
 
@@ -2801,6 +3088,7 @@
     cartCount++;
     cartBadge.textContent = cartCount;
     cartBadge.classList.add('show');
+    collectItem(currentPid);
     const orig = this.textContent;
     this.textContent = '✓ added to bag';
     this.style.background = '#1a1a1a';
@@ -2853,6 +3141,18 @@
   }
   document.getElementById('menuClose').addEventListener('click', closeMenu);
   menuBg.addEventListener('click', closeMenu);
+
+  // binder link in menu
+  document.getElementById('menuBinder').addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
+    setTimeout(() => openProfile(), 350);
+  });
+  // desktop nav binder
+  document.getElementById('navBinder').addEventListener('click', (e) => {
+    e.preventDefault();
+    openProfile();
+  });
 
   /* ── Wishlist heart toggle ── */
   document.querySelectorAll('.p-card__wish').forEach(btn => {
@@ -3113,6 +3413,128 @@
     closeCart();
     setTimeout(() => openMystery(), 350);
   });
+
+  /* ═══════════════════════════════════
+     PROFILE / BINDER
+  ═══════════════════════════════════ */
+  const profileOverlay = document.getElementById('profileOverlay');
+  const binderDropsEl  = document.getElementById('binderDrops');
+  const collected = new Set(); // pids the user has "purchased"
+
+  // Drop catalog — each drop is a themed collection
+  const DROPS = [
+    {
+      id: 'drop-01',
+      name: 'drop 01 — genesis',
+      date: 'jan 2025',
+      items: [
+        { pid: 'midnight', name: 'midnight in mumbai', img: 'tee-midnight.jpg' },
+        { pid: 'badtouch', name: 'bad touch', img: 'tee-badtouch.jpg' },
+        { pid: 'star', name: "please i'm a star", img: 'tee-star-new.png' },
+      ]
+    },
+    {
+      id: 'drop-02',
+      name: 'drop 02 — coming soon',
+      date: 'tba',
+      items: [
+        { pid: 'drop2a', name: '???', img: '', locked: true, upcoming: true },
+        { pid: 'drop2b', name: '???', img: '', locked: true, upcoming: true },
+        { pid: 'drop2c', name: '???', img: '', locked: true, upcoming: true },
+      ]
+    }
+  ];
+
+  function openProfile() {
+    renderBinder();
+    profileOverlay.classList.add('open');
+  }
+  function closeProfile() {
+    profileOverlay.classList.remove('open');
+  }
+
+  function renderBinder() {
+    binderDropsEl.innerHTML = '';
+    let totalItems = 0;
+    let totalCollected = 0;
+    let totalDrops = 0;
+
+    DROPS.forEach(drop => {
+      const dropItems = drop.items;
+      const collectedInDrop = dropItems.filter(it => collected.has(it.pid)).length;
+      const total = dropItems.filter(it => !it.upcoming).length;
+      totalItems += dropItems.length;
+      totalCollected += collectedInDrop;
+      if (total > 0) totalDrops++;
+      const isComplete = total > 0 && collectedInDrop === total;
+
+      const section = document.createElement('div');
+      section.className = 'drop' + (isComplete ? ' drop--complete' : '');
+      section.innerHTML = `
+        <div class="drop__header">
+          <span class="drop__name">${drop.name}</span>
+          <span class="drop__date">${drop.date}</span>
+          <span class="drop__complete-badge">complete</span>
+        </div>
+        <div class="drop__progress">
+          <div class="drop__progress-fill" style="width:${total > 0 ? (collectedInDrop / total * 100) : 0}%"></div>
+        </div>
+        <div class="drop__grid" id="grid-${drop.id}"></div>
+      `;
+      binderDropsEl.appendChild(section);
+
+      const grid = section.querySelector('.drop__grid');
+      dropItems.forEach(item => {
+        const isCollected = collected.has(item.pid);
+        const isUpcoming = item.upcoming;
+        const card = document.createElement('div');
+        card.className = 'binder-card ' + (isCollected ? 'binder-card--collected' : 'binder-card--locked');
+        if (isUpcoming) {
+          card.innerHTML = `
+            <div style="width:100%;height:100%;background:var(--black);display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:28px;opacity:0.2;">?</span>
+            </div>
+            <div class="binder-card__info">
+              <div class="binder-card__name">${item.name}</div>
+              <div class="binder-card__status">coming soon</div>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <img class="binder-card__img" src="${item.img}" alt="${item.name}" />
+            <div class="binder-card__info">
+              <div class="binder-card__name">${item.name}</div>
+              <div class="binder-card__status">${isCollected ? 'collected' : 'not collected'}</div>
+            </div>
+          `;
+          if (!isCollected) {
+            card.addEventListener('click', () => {
+              closeProfile();
+              setTimeout(() => openSheet(item.pid), 350);
+            });
+          }
+        }
+        grid.appendChild(card);
+      });
+    });
+
+    // update stats
+    document.getElementById('statCollected').textContent = totalCollected;
+    document.getElementById('statDrops').textContent = totalDrops;
+    const pct = totalItems > 0 ? Math.round(totalCollected / totalItems * 100) : 0;
+    document.getElementById('statCompletion').textContent = pct + '%';
+    document.getElementById('binderCount').textContent = totalCollected + ' / ' + totalItems;
+  }
+
+  // mark item as collected on add-to-bag
+  function collectItem(pid) {
+    if (!collected.has(pid)) {
+      collected.add(pid);
+    }
+  }
+
+  document.getElementById('profileBtn').addEventListener('click', openProfile);
+  document.getElementById('profileClose').addEventListener('click', closeProfile);
 
   /* ═══════════════════════════════════
      MYSTERY SCRATCH CARD
