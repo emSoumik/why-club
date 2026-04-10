@@ -174,13 +174,11 @@
       position: absolute;
       top: 4px; right: 2px;
       width: 16px; height: 16px;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.1);
+      background: var(--black);
+      border: 1px solid var(--black);
       color: #fff;
       font-size: 8px; font-weight: 800;
-      border-radius: 6px;
+      border-radius: 14px;
       display: none; align-items: center; justify-content: center;
     }
     .hdr__cart-badge.show { display: flex; }
@@ -275,14 +273,12 @@
     .hero__tag {
       font-size: 9px; font-weight: 800;
       letter-spacing: 0.18em; text-transform: uppercase;
-      background: rgba(255,255,255,0.25);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.4);
+      border: 1px solid #fff;
       color: #fff;
       display: inline-block;
       padding: 5px 10px;
-      border-radius: 10px;
+      border-radius: 14px;
       margin-bottom: 8px;
     }
     .hero__name {
@@ -302,10 +298,8 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255,255,255,0.3);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.4);
+      border: 1px solid #fff;
       color: #fff;
       font-size: 11px; font-weight: 800;
       letter-spacing: 0.1em; text-transform: uppercase;
@@ -387,11 +381,9 @@
       font-size: 10px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--black);
-      background: rgba(0,0,0,0.05);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      border-radius: 14px;
       padding: 6px 12px;
     }
 
@@ -443,21 +435,17 @@
       z-index: 1;
     }
     .badge-new  {
-      background: rgba(255,255,255,0.45);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
       color: var(--black);
-      border: 1px solid rgba(0,0,0,0.15);
-      border-radius: 8px;
+      border-radius: 14px;
       padding: 4px 9px;
     }
     .badge-sale {
-      background: rgba(255,255,255,0.45);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
       color: var(--red);
-      border: 1px solid rgba(0,0,0,0.15);
-      border-radius: 8px;
+      border-radius: 14px;
       padding: 4px 9px;
     }
     .p-card__wish {
@@ -467,11 +455,9 @@
       font-size: 16px;
       color: #fff;
       text-shadow: none;
-      background: rgba(255,255,255,0.3);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
+      border-radius: 14px;
       -webkit-tap-highlight-color: transparent;
       width: 34px;
       height: 34px;
@@ -598,10 +584,8 @@
     }
     .manifesto__btn {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,0.25);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
       color: #fff;
       font-size: 11px; font-weight: 800;
       letter-spacing: 0.1em; text-transform: lowercase;
@@ -672,11 +656,9 @@
       position: absolute;
       top: 14px; right: 14px;
       width: 34px; height: 34px;
-      background: rgba(255,255,255,0.3);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
+      border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
     }
     .s-reel__play::after {
@@ -704,11 +686,9 @@
     }
     .s-reel__av {
       width: 26px; height: 26px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 800;
     }
@@ -743,18 +723,16 @@
     .s-quote__footer {
       display: flex; align-items: center; justify-content: space-between;
       padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.3);
     }
     .s-quote__who {
       display: flex; align-items: center; gap: 8px;
     }
     .s-quote__av {
       width: 28px; height: 28px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
       display: flex; align-items: center; justify-content: center;
       font-size: 12px; font-weight: 800;
     }
@@ -763,12 +741,10 @@
     .s-quote__product {
       font-size: 8px; font-weight: 800;
       letter-spacing: 0.12em; text-transform: uppercase;
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
       padding: 5px 10px;
-      border-radius: 10px;
+      border-radius: 14px;
       color: rgba(255,255,255,0.6);
     }
 
@@ -796,11 +772,9 @@
       font-size: 10px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--black);
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      border-radius: 14px;
       padding: 8px 14px;
       transition: background .15s;
     }
@@ -966,35 +940,29 @@
     .sheet__sz {
       min-width: 52px; height: 48px;
       padding: 0 14px;
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
       font-size: 12px; font-weight: 700;
       letter-spacing: 0.04em; text-transform: uppercase;
       color: var(--black);
       display: flex; align-items: center; justify-content: center;
-      border-radius: 12px;
+      border-radius: 14px;
       transition: border-color .15s, background .15s;
       -webkit-tap-highlight-color: transparent;
     }
     .sheet__sz.active  {
-      border-color: var(--black);
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--black);
+      background: var(--black);
       color: #fff;
     }
-    .sheet__sz.sold-out { color: var(--mid); border-color: rgba(0,0,0,0.06); text-decoration: line-through; background: rgba(0,0,0,0.02); }
+    .sheet__sz.sold-out { color: var(--mid); border-color: var(--mid); text-decoration: line-through; background: rgba(255,255,255,0.4); }
     .sheet__btns {
       display: flex; flex-direction: column; gap: 10px;
     }
     .sheet__atc {
       width: 100%; height: 56px;
-      background: rgba(0,0,0,0.82);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(0,0,0,0.15);
+      background: var(--black);
+      border: 1px solid var(--black);
       color: #fff;
       font-size: 13px; font-weight: 800;
       letter-spacing: 0.12em; text-transform: uppercase;
@@ -1003,21 +971,19 @@
       -webkit-tap-highlight-color: transparent;
     }
     .sheet__atc:disabled {
-      background: rgba(0,0,0,0.2);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--mid);
+      color: var(--mid);
       pointer-events: none;
     }
     .sheet__atc:active { transform: scale(0.98); }
     .sheet__full {
       width: 100%; height: 48px;
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
       font-size: 11px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--mid);
+      color: var(--black);
       border-radius: 14px;
       -webkit-tap-highlight-color: transparent;
     }
@@ -1126,11 +1092,9 @@
       font-size: 11px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--black);
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      border-radius: 14px;
       padding: 6px 12px;
     }
     .search-hints {
@@ -1145,12 +1109,10 @@
     .search-hint-tag {
       display: inline-flex;
       padding: 8px 14px;
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
       font-size: 12px; font-weight: 600;
-      border-radius: 10px;
+      border-radius: 14px;
       margin: 0 8px 8px 0;
     }
 
@@ -1357,11 +1319,9 @@
       position: fixed;
       top: 70px; left: 50%;
       transform: translateX(-50%) translateY(-20px);
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      color: var(--black);
       font-size: 12px; font-weight: 700;
       letter-spacing: 0.06em;
       padding: 10px 20px;
@@ -1408,10 +1368,8 @@
     }
     .shake-reward__code {
       display: inline-block;
-      background: rgba(0,0,0,0.08);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
       color: var(--black);
       font-size: 18px; font-weight: 900;
       letter-spacing: 0.15em;
@@ -1426,14 +1384,12 @@
     .shake-reward__close {
       font-size: 12px; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--mid);
+      color: var(--black);
       min-height: 44px;
       display: inline-flex; align-items: center;
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      border-radius: 14px;
       padding: 0 16px;
     }
 
@@ -1540,10 +1496,8 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
       border-radius: 14px;
       padding: 10px 14px 10px 18px;
     }
@@ -1554,9 +1508,9 @@
     }
     .mystery__copy {
       width: 34px; height: 34px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
+      border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
       font-size: 14px;
       cursor: pointer;
@@ -1620,11 +1574,9 @@
       font-size: 11px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--black);
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      border-radius: 14px;
       padding: 6px 12px;
       cursor: pointer;
     }
@@ -1690,12 +1642,10 @@
     .binder__count {
       font-size: 10px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--mid);
-      background: rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 10px;
+      color: var(--black);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      border-radius: 14px;
       padding: 5px 10px;
     }
     /* drop group */
@@ -1750,11 +1700,9 @@
     .binder-card__info {
       position: absolute;
       bottom: 6px; left: 6px; right: 6px;
-      background: rgba(255,255,255,0.45);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--black);
+      border-radius: 14px;
       padding: 8px 10px;
     }
     .binder-card__name {
@@ -1782,10 +1730,8 @@
       filter: grayscale(1) brightness(0.7);
     }
     .binder-card--locked .binder-card__info {
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-color: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid #fff;
     }
     .binder-card--locked .binder-card__name {
       color: rgba(255,255,255,0.7);
@@ -1984,10 +1930,8 @@
     .cart__checkout {
       width: 100%;
       height: 52px;
-      background: rgba(0,0,0,0.82);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(0,0,0,0.15);
+      background: var(--black);
+      border: 1px solid var(--black);
       color: #fff;
       font-size: 12px; font-weight: 800;
       letter-spacing: 0.1em; text-transform: uppercase;
@@ -1998,7 +1942,9 @@
     }
     .cart__checkout:active { transform: scale(0.97); }
     .cart__checkout:disabled {
-      background: rgba(0,0,0,0.15);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--mid);
+      color: var(--mid);
       pointer-events: none;
     }
 
