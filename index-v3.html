@@ -1439,6 +1439,173 @@
       padding: 0 16px;
     }
 
+    /* ── Mystery Scratch Card ── */
+    .mystery {
+      position: fixed; inset: 0;
+      z-index: 9997;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .mystery.show { opacity: 1; pointer-events: all; }
+    .mystery__card {
+      width: 320px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-align: center;
+      transform: scale(0.92) translateY(20px);
+      transition: transform .45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .mystery.show .mystery__card { transform: scale(1) translateY(0); }
+    .mystery__emoji { font-size: 36px; margin-bottom: 8px; }
+    .mystery__title {
+      font-size: 20px; font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: lowercase;
+      margin-bottom: 4px;
+      color: var(--black);
+    }
+    .mystery__sub {
+      font-size: 12px; color: var(--mid);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    /* email step */
+    .mystery__email-step { margin-bottom: 16px; }
+    .mystery__input {
+      width: 100%;
+      height: 48px;
+      background: rgba(0,0,0,0.04);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 0 16px;
+      font-size: 13px; font-weight: 500;
+      color: var(--black);
+      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+    .mystery__input::placeholder { color: var(--mid); }
+    .mystery__unlock {
+      width: 100%;
+      height: 48px;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,0,0,0.15);
+      color: #fff;
+      font-size: 12px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 14px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: transform .15s;
+    }
+    .mystery__unlock:active { transform: scale(0.97); }
+    /* scratch step */
+    .mystery__scratch-step { display: none; }
+    .mystery__scratch-wrap {
+      position: relative;
+      width: 260px; height: 120px;
+      margin: 0 auto 16px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08);
+      cursor: grab;
+      touch-action: none;
+    }
+    .mystery__scratch-wrap:active { cursor: grabbing; }
+    .mystery__reveal {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .mystery__discount {
+      font-size: 36px; font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--black);
+    }
+    .mystery__discount-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 2px;
+    }
+    .mystery__scratch-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 2;
+    }
+    .mystery__hint {
+      font-size: 11px; color: var(--mid);
+      margin-bottom: 14px;
+    }
+    /* revealed state */
+    .mystery__code-row {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .mystery__code-row.show { display: flex; }
+    .mystery__code-val {
+      font-size: 16px; font-weight: 900;
+      letter-spacing: 0.12em;
+      background: rgba(0,0,0,0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 10px 20px;
+      color: var(--black);
+    }
+    .mystery__copy {
+      width: 40px; height: 40px;
+      background: rgba(0,0,0,0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .mystery__copy:active { background: rgba(0,0,0,0.12); }
+    .mystery__done {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--mid);
+      background: rgba(0,0,0,0.04);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 0 16px;
+      min-height: 44px;
+      display: inline-flex; align-items: center;
+      cursor: pointer;
+    }
+    .mystery__skip {
+      font-size: 11px; font-weight: 600;
+      color: var(--mid);
+      margin-top: 12px;
+      cursor: pointer;
+      opacity: 0.6;
+    }
+
     /* ── Long press tilt ── */
     .p-card.tilting {
       transition: transform 0.1s ease-out;
@@ -2250,6 +2417,37 @@
   </div>
 </div>
 
+<!-- Mystery Scratch Card -->
+<div class="mystery" id="mysteryOverlay">
+  <div class="mystery__card">
+    <div class="mystery__emoji">🎁</div>
+    <div class="mystery__title">unlock a mystery discount</div>
+    <div class="mystery__sub">enter your email to reveal your exclusive discount. it could be anything from 5% to 40% off.</div>
+    <!-- Step 1: Email -->
+    <div class="mystery__email-step" id="mysteryEmailStep">
+      <input class="mystery__input" id="mysteryEmail" type="email" placeholder="your email address" autocomplete="email" />
+      <button class="mystery__unlock" id="mysteryUnlock">reveal my discount →</button>
+      <div class="mystery__skip" id="mysterySkip">no thanks, i'll pay full price</div>
+    </div>
+    <!-- Step 2: Scratch -->
+    <div class="mystery__scratch-step" id="mysteryScratchStep">
+      <div class="mystery__scratch-wrap" id="mysteryScratchWrap">
+        <div class="mystery__reveal">
+          <div class="mystery__discount" id="mysteryDiscount">25%</div>
+          <div class="mystery__discount-label">off your order</div>
+        </div>
+        <canvas class="mystery__scratch-canvas" id="mysteryScratchCanvas"></canvas>
+      </div>
+      <div class="mystery__hint" id="mysteryHint">scratch to reveal ↑</div>
+      <div class="mystery__code-row" id="mysteryCodeRow">
+        <span class="mystery__code-val" id="mysteryCodeVal">WHY25</span>
+        <button class="mystery__copy" id="mysteryCopy">📋</button>
+      </div>
+      <button class="mystery__done" id="mysteryDone" style="display:none;">apply & continue shopping</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
@@ -2413,6 +2611,10 @@
     setTimeout(() => { this.textContent = orig; this.style.background = ''; }, 1800);
     // confetti burst
     spawnConfetti(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
+    // trigger mystery scratch card on first add-to-bag
+    if (!mysteryUsed) {
+      setTimeout(() => { openMystery(); }, 1200);
+    }
   });
   document.getElementById('sheetFull').addEventListener('click', () => {
     if (currentPid) expandSheet();
@@ -2606,6 +2808,11 @@
      SPEEDRUN BACK-TO-TOP
   ═══════════════════════════════════ */
   const toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => { toast.classList.remove('show'); }, 2800);
+  }
   let lastScroll = 0;
   let scrollPeak = 0;
   let speedrunShown = false;
@@ -2635,6 +2842,165 @@
     if (y > 200) scrollPeak = Math.max(scrollPeak, y);
     lastScroll = y;
   }, { passive: true });
+
+  /* ═══════════════════════════════════
+     MYSTERY SCRATCH CARD
+  ═══════════════════════════════════ */
+  const mysteryOverlay   = document.getElementById('mysteryOverlay');
+  const mysteryEmailStep = document.getElementById('mysteryEmailStep');
+  const mysteryScratchStep = document.getElementById('mysteryScratchStep');
+  const mysteryEmailInput = document.getElementById('mysteryEmail');
+  const mysteryCanvas    = document.getElementById('mysteryScratchCanvas');
+  const mysteryHint      = document.getElementById('mysteryHint');
+  const mysteryCodeRow   = document.getElementById('mysteryCodeRow');
+  const mysteryDone      = document.getElementById('mysteryDone');
+  let mysteryUsed = false;
+  let mysteryRevealed = false;
+
+  // discount tiers — weighted so bigger discounts are rarer
+  const discountTiers = [
+    { pct: 5,  code: 'WHY5',  weight: 10 },
+    { pct: 10, code: 'WHY10', weight: 30 },
+    { pct: 15, code: 'WHY15', weight: 25 },
+    { pct: 20, code: 'WHY20', weight: 18 },
+    { pct: 25, code: 'WHY25', weight: 10 },
+    { pct: 30, code: 'WHY30', weight: 5  },
+    { pct: 40, code: 'WHY40', weight: 2  },
+  ];
+  function pickDiscount() {
+    const total = discountTiers.reduce((s, d) => s + d.weight, 0);
+    let r = Math.random() * total;
+    for (const d of discountTiers) {
+      r -= d.weight;
+      if (r <= 0) return d;
+    }
+    return discountTiers[1];
+  }
+  const chosenDiscount = pickDiscount();
+
+  function openMystery() {
+    if (mysteryUsed) return;
+    mysteryUsed = true;
+    document.getElementById('mysteryDiscount').textContent = chosenDiscount.pct + '%';
+    document.getElementById('mysteryCodeVal').textContent = chosenDiscount.code;
+    mysteryOverlay.classList.add('show');
+    initScratchCanvas();
+  }
+
+  // email → scratch transition
+  document.getElementById('mysteryUnlock').addEventListener('click', () => {
+    const email = mysteryEmailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      mysteryEmailInput.style.borderColor = 'var(--red)';
+      mysteryEmailInput.focus();
+      return;
+    }
+    mysteryEmailStep.style.display = 'none';
+    mysteryScratchStep.style.display = 'block';
+  });
+
+  // skip
+  document.getElementById('mysterySkip').addEventListener('click', () => {
+    mysteryOverlay.classList.remove('show');
+  });
+
+  // scratch canvas
+  function initScratchCanvas() {
+    const wrap = document.getElementById('mysteryScratchWrap');
+    const w = wrap.offsetWidth;
+    const h = wrap.offsetHeight;
+    mysteryCanvas.width = w * 2;
+    mysteryCanvas.height = h * 2;
+    mysteryCanvas.style.width = w + 'px';
+    mysteryCanvas.style.height = h + 'px';
+    const ctx = mysteryCanvas.getContext('2d');
+    ctx.scale(2, 2);
+    // draw the scratch surface — frosted glass look
+    ctx.fillStyle = '#e8e8e8';
+    ctx.fillRect(0, 0, w, h);
+    // add subtle pattern
+    ctx.fillStyle = '#ddd';
+    for (let i = 0; i < 60; i++) {
+      const x = Math.random() * w;
+      const y = Math.random() * h;
+      ctx.beginPath();
+      ctx.arc(x, y, Math.random() * 8 + 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // question marks
+    ctx.fillStyle = '#bbb';
+    ctx.font = '800 28px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('? ? ?', w / 2, h / 2 - 8);
+    ctx.font = '600 11px Inter, sans-serif';
+    ctx.fillStyle = '#999';
+    ctx.fillText('SCRATCH HERE', w / 2, h / 2 + 18);
+
+    ctx.globalCompositeOperation = 'destination-out';
+
+    let scratching = false;
+    let totalPixels = w * h * 4;
+
+    function getPos(e) {
+      const rect = mysteryCanvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function scratch(pos) {
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 22, 0, Math.PI * 2);
+      ctx.fill();
+      checkReveal();
+    }
+
+    function checkReveal() {
+      if (mysteryRevealed) return;
+      const imgData = ctx.getImageData(0, 0, mysteryCanvas.width, mysteryCanvas.height);
+      let cleared = 0;
+      for (let i = 3; i < imgData.data.length; i += 4) {
+        if (imgData.data[i] === 0) cleared++;
+      }
+      const pct = cleared / (imgData.data.length / 4);
+      if (pct > 0.45) {
+        mysteryRevealed = true;
+        mysteryCanvas.style.transition = 'opacity .5s';
+        mysteryCanvas.style.opacity = '0';
+        mysteryHint.textContent = '🎉 you got ' + chosenDiscount.pct + '% off!';
+        mysteryHint.style.color = 'var(--black)';
+        mysteryHint.style.fontWeight = '700';
+        mysteryCodeRow.classList.add('show');
+        mysteryDone.style.display = 'inline-flex';
+        if (navigator.vibrate) navigator.vibrate([30, 20, 30, 20, 50]);
+        spawnConfetti(window.innerWidth / 2, window.innerHeight / 2);
+      }
+    }
+
+    mysteryCanvas.addEventListener('mousedown', (e) => { scratching = true; scratch(getPos(e)); });
+    mysteryCanvas.addEventListener('mousemove', (e) => { if (scratching) scratch(getPos(e)); });
+    mysteryCanvas.addEventListener('mouseup', () => { scratching = false; });
+    mysteryCanvas.addEventListener('mouseleave', () => { scratching = false; });
+    mysteryCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); scratching = true; scratch(getPos(e)); }, { passive: false });
+    mysteryCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (scratching) scratch(getPos(e)); }, { passive: false });
+    mysteryCanvas.addEventListener('touchend', () => { scratching = false; });
+  }
+
+  // copy code
+  document.getElementById('mysteryCopy').addEventListener('click', () => {
+    const code = document.getElementById('mysteryCodeVal').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      document.getElementById('mysteryCopy').textContent = '✓';
+      setTimeout(() => { document.getElementById('mysteryCopy').textContent = '📋'; }, 1500);
+    });
+  });
+
+  // done
+  document.getElementById('mysteryDone').addEventListener('click', () => {
+    mysteryOverlay.classList.remove('show');
+    showToast('code ' + chosenDiscount.code + ' applied!');
+  });
 
   /* ═══════════════════════════════════
      SHAKE TO REVEAL DISCOUNT
