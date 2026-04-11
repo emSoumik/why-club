@@ -7,6 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>WhÿClub</title>
+  <meta name="description" content="Bold graphics. Oversized fits. 100% cotton heavyweight tees designed in India. Perfect is boring." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -98,7 +99,7 @@
       --white:  #ffffff;
       --off:    #F6F6F4;
       --border: #EBEBEB;
-      --mid:    #888888;
+      --mid:    #666666;
       --nav-h:  60px;
       --hdr-h:  52px;
       --ann-h:  28px;
@@ -316,10 +317,17 @@
       gap: 5px;
     }
     .hero__dot {
-      width: 3px; height: 18px;
+      width: 5px; height: 18px;
       background: rgba(255,255,255,0.35);
       border-radius: 9999px;
       transition: background .25s, height .25s;
+      position: relative;
+    }
+    .hero__dot::before {
+      content: '';
+      position: absolute;
+      top: -12px; bottom: -12px;
+      left: -18px; right: -18px;
     }
     .hero__dot.active {
       background: #fff;
@@ -423,7 +431,7 @@
     .p-card__wish {
       position: absolute;
       top: 4px; right: 4px;
-      z-index: 1;
+      z-index: 5;
       font-size: 18px;
       color: #fff;
       text-shadow: 0 1px 4px rgba(0,0,0,0.3);
@@ -1147,14 +1155,6 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
-    }
-
-    /* ── Odd last card spans full width ── */
-    .p-card:last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-    }
-    .p-card:last-child:nth-child(odd) .p-card__img {
-      aspect-ratio: 16 / 9;
     }
 
     /* ── Focus visible for accessibility ── */
@@ -2077,7 +2077,7 @@
     </button>
   </div>
 
-  <a class="hdr__logo" href="#">
+  <a class="hdr__logo" href="#" aria-label="WhyClub home">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="295 385 1345 270">
       <defs><style>.cls-1{fill:#fff;}</style></defs>
       <path d="M428.47,560q-12.25,29.92-24.53,59.85c-2.9,7.06-5.69,14.17-9,21a7.34,7.34,0,0,1-5.3,3.54c-19.62.26-39.24.14-58.87.22-2.93,0-4.43-.71-4.79-4q-9.75-88.85-19.69-177.67a54.23,54.23,0,0,1,0-5.46h67q1.95,43.23,3.9,86.58l1,.25c.58-1.12,1.25-2.2,1.72-3.36,10.73-26.56,21.41-53.16,32.27-79.67.72-1.75,2.88-4.12,4.4-4.14,18.33-.29,36.67-.19,55.67-.19,3.74,29.8,7.42,59.07,11.09,88.34l1.36.11c1.73-5.42,3.4-10.85,5.21-16.23,7.45-22.29,15-44.54,22.33-66.88,1.29-3.94,3-5.46,7.39-5.39,19.41.28,38.83.14,58.25.18,1.17,0,2.34.25,4.4.48-4.4,11.42-8.56,22.36-12.84,33.25q-29.39,74.84-59,149.58c-.73,1.83-3.62,3.94-5.54,4-19.41.33-38.83.15-58.24.4-4.32,0-5.51-1.61-6-5.59-3.53-26.33-7.3-52.63-11-78.94Z"/>
@@ -2178,7 +2178,6 @@
 <!-- Shop all -->
 <div class="sec-hd">
   <h2 class="sec-hd__t">shop all</h2>
-  <a class="sec-hd__l" href="#">view all →</a>
 </div>
 <div class="p-grid">
   <div class="p-card" data-pid="midnight">
@@ -2394,7 +2393,6 @@
       <a href="returns.html">returns</a>
       <a href="contact.html">contact</a>
       <a href="https://instagram.com/whyclub.in" target="_blank">instagram</a>
-      <a href="returns.html">size guide</a>
     </div>
   </div>
   <div class="footer__copy">© 2026 whÿclub — perfect is boring</div>
@@ -2461,7 +2459,7 @@
       <div class="sheet__price" id="sheetPrice"></div>
       <div class="sheet__label">
         <span>select size</span>
-        <a href="#">size guide</a>
+        <a href="returns.html">size guide</a>
       </div>
       <div class="sheet__sizes" id="sheetSizes"></div>
       <div class="sheet__btns">
@@ -2746,8 +2744,8 @@
     const orig = this.textContent;
     this.textContent = '\u2713 added to bag';
     this.style.background = '#1a1a1a';
-    setTimeout(() => { this.textContent = orig; this.style.background = ''; }, 1800);
     spawnConfetti(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
+    setTimeout(() => { closeSheet(); }, 1200);
   });
   document.getElementById('sheetFull').addEventListener('click', () => {
     if (currentPid) expandSheet();
@@ -2958,7 +2956,7 @@
     const y = window.scrollY;
     if (y > scrollPeak) scrollPeak = y;
     // if they were far down and snap back to top fast
-    if (!speedrunShown && scrollPeak > window.innerHeight * 2 && y < 10) {
+    if (!speedrunShown && scrollPeak > window.innerHeight * 4 && y < 10) {
       speedrunShown = true;
       const msg = speedrunMessages[Math.floor(Math.random() * speedrunMessages.length)];
       toast.textContent = msg;
@@ -2995,9 +2993,11 @@
   function openCart() {
     renderCart();
     cartOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
   function closeCart() {
     cartOverlay.classList.remove('open');
+    document.body.style.overflow = '';
   }
 
   function renderCart() {
@@ -3090,9 +3090,11 @@
   function openProfile() {
     renderBinder();
     profileOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
   function closeProfile() {
     profileOverlay.classList.remove('open');
+    document.body.style.overflow = '';
   }
 
   function renderBinder() {
