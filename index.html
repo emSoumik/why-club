@@ -1157,6 +1157,14 @@
       }
     }
 
+    /* ── Odd last card spans full width ── */
+    .p-card:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+    .p-card:last-child:nth-child(odd) .p-card__img {
+      aspect-ratio: 16 / 9;
+    }
+
     /* ── Focus visible for accessibility ── */
     button:focus-visible, a:focus-visible, input:focus-visible {
       outline: 2px solid var(--black);
