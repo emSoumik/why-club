@@ -1,0 +1,52 @@
+---
+import { demoCollections, siteCopy } from "@/lib/demo-data";
+import { HeaderAuthCartControls } from "@/components/react/StorefrontClient";
+
+const navLinks = [
+  { href: "/collections", label: "shop" },
+  { href: `/collections/${demoCollections[0]?.slug ?? "drop-01"}`, label: "drop 01" },
+  { href: "/story", label: "story" },
+  { href: "/returns", label: "returns" },
+  { href: "/contact", label: "contact" },
+];
+
+const marqueeItems = [
+  "free shipping on prepaid",
+  siteCopy.slogan,
+  "cash on delivery",
+  "100% cotton",
+  "new drop live",
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-black bg-[rgba(255,253,248,0.92)] backdrop-blur-xl">
+  <div class="overflow-hidden border-b border-black bg-black py-2 text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-white">
+    <div class="store-marquee">
+      {[...marqueeItems, ...marqueeItems].map((item) => (
+        <span class="flex items-center gap-6">
+          <span>{item}</span>
+          <span class="text-red-500">•</span>
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-6">
+    <div class="flex items-center gap-8">
+      <a href="/" class="text-lg font-black uppercase tracking-[-0.08em] text-black md:text-2xl">
+        WhÿClub
+      </a>
+      <nav class="hidden items-center gap-5 md:flex">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-neutral-600 transition hover:text-black"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+    <HeaderAuthCartControls client:load />
+  </div>
+</header>

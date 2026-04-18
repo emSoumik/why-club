@@ -1,0 +1,46 @@
+---
+const sections = [
+  { href: "/admin", label: "overview" },
+  { href: "/admin/products", label: "products" },
+  { href: "/admin/collections", label: "collections" },
+  { href: "/admin/orders", label: "orders" },
+  { href: "/admin/coupons", label: "coupons" },
+  { href: "/admin/reviews", label: "reviews" },
+  { href: "/admin/team", label: "team" },
+];
+
+const { pathname } = Astro.url;
+---
+
+<aside class="sticky top-0 h-screen border-r border-white/10 bg-neutral-950/95 px-5 py-8 text-neutral-100 backdrop-blur">
+  <div class="space-y-2">
+    <p class="font-display text-3xl tracking-[-0.08em]">WhÿClub</p>
+    <p class="text-[0.68rem] uppercase tracking-[0.32em] text-neutral-500">admin studio</p>
+  </div>
+
+  <nav class="mt-10 flex flex-col gap-2">
+    {
+      sections.map((section) => {
+        const active = pathname === section.href;
+
+        return (
+          <a
+            href={section.href}
+            class:list={[
+              "rounded-2xl px-4 py-3 text-sm uppercase tracking-[0.24em] transition",
+              active
+                ? "bg-white text-neutral-950"
+                : "text-neutral-400 hover:bg-white/5 hover:text-white",
+            ]}
+          >
+            {section.label}
+          </a>
+        );
+      })
+    }
+  </nav>
+
+  <div class="mt-auto pt-12 text-xs uppercase tracking-[0.28em] text-neutral-500">
+    demo mode
+  </div>
+</aside>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>WhyClub favicon</title>
+  <rect width="64" height="64" rx="16" fill="#121212" />
+  <path
+    d="M18 18h9.5L32 25.4 36.5 18H46l-9.2 15.1V46h-9.6V33.1L18 18Z"
+    fill="#f4f1ea"
+  />
+  <circle cx="46" cy="18" r="4.2" fill="#dc2626" />
+</svg>

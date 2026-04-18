@@ -1,0 +1,42 @@
+---
+import { demoCollections, siteCopy } from "@/lib/demo-data";
+---
+
+<footer class="mt-24 border-t border-black bg-black text-white">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:px-6 md:py-16">
+    <div>
+      <p class="text-3xl font-black uppercase tracking-[-0.08em] md:text-5xl">
+        WhÿClub
+      </p>
+      <p class="mt-5 max-w-md text-sm leading-7 text-neutral-400">
+        {siteCopy.footerBlurb}
+      </p>
+      <div class="mt-6 text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-neutral-500">
+        founded {siteCopy.foundedYear} · {siteCopy.originCity}
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <p class="text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-neutral-500">browse</p>
+      <div class="flex flex-col gap-3 text-sm text-neutral-200">
+        <a href="/collections">shop all</a>
+        <a href={`/collections/${demoCollections[0]?.slug ?? "drop-01"}`}>drop 01</a>
+        <a href="/cart">cart</a>
+        <a href="/account">account</a>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <p class="text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-neutral-500">connect</p>
+      <div class="flex flex-col gap-3 text-sm text-neutral-200">
+        <a href={`mailto:${siteCopy.supportEmail}`}>{siteCopy.supportEmail}</a>
+        <a href="https://instagram.com/whyclub.in" target="_blank" rel="noreferrer">
+          {siteCopy.instagramHandle}
+        </a>
+        <a href={siteCopy.whatsappUrl} target="_blank" rel="noreferrer">
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

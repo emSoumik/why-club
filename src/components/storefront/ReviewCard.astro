@@ -1,0 +1,22 @@
+---
+import type { DemoReview } from "@/lib/types";
+
+interface Props {
+  review: DemoReview;
+}
+
+const { review } = Astro.props;
+---
+
+<article class="rounded-[1.5rem] border border-black bg-white p-6">
+  <div class="mb-4 flex items-center justify-between gap-4">
+    <div>
+      <p class="text-lg font-black uppercase tracking-[0.02em] text-black">{review.author}</p>
+      <p class="text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-neutral-500">{review.location}</p>
+    </div>
+    <div class="text-sm tracking-[0.2em] text-red-600">
+      {"★".repeat(review.rating)}
+    </div>
+  </div>
+  <p class="text-sm leading-7 text-neutral-700">“{review.comment}”</p>
+</article>

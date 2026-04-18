@@ -1,0 +1,67 @@
+---
+import ProductCard from "@/components/storefront/ProductCard.astro";
+import StorefrontLayout from "@/layouts/StorefrontLayout.astro";
+import { getCollectionBySlug, getProductsByCollection } from "@/lib/demo-data";
+
+const slug = Astro.params.slug ?? "";
+const collection = getCollectionBySlug(slug);
+
+if (!collection) {
+  Astro.response.status = 404;
+}
+
+const products = collection ? getProductsByCollection(collection.slug) : [];
+---
+
+<StorefrontLayout
+  title={collection ? `WhÿClub | ${collection.title}` : "WhÿClub | collection not found"}
+>
+  {
+    collection ? (
+      <>
+        <section class="store-shell mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-16">
+          <article class="overflow-hidden rounded-[2rem] border border-black bg-white">
+            <div class="grid gap-0 xl:grid-cols-[0.88fr_1.12fr]">
+              <img src={collection.imageUrl} alt={collection.title} class="h-full min-h-[24rem] w-full object-cover object-top" />
+              <div class="flex flex-col justify-between p-6 md:p-8">
+                <div>
+                  <p class="text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-red-600">collection</p>
+                  <h1 class="mt-4 text-4xl font-black uppercase leading-[0.88] tracking-[-0.06em] text-black md:text-6xl">
+                    {collection.title}
+                  </h1>
+                  <p class="mt-5 max-w-xl text-sm leading-8 text-neutral-600">{collection.description}</p>
+                </div>
+                <div class="mt-10 flex flex-wrap gap-3 border-t border-black pt-5">
+                  <span class="rounded-full border border-black px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-black">
+                    {products.length} styles
+                  </span>
+                  <a href="/cart" class="store-btn">
+                    view cart
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="store-shell mx-auto max-w-7xl px-4 pb-16 md:px-6">
+          <div class="grid gap-px overflow-hidden border border-black bg-black md:grid-cols-3">
+            {products.map((product) => (
+              <div class="bg-white">
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+        </section>
+      </>
+    ) : (
+      <section class="store-shell mx-auto max-w-3xl px-4 py-20 text-center md:px-6">
+        <p class="text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-neutral-500">404</p>
+        <h1 class="mt-4 text-5xl font-black uppercase tracking-[-0.06em] text-black">collection not found</h1>
+        <p class="mt-5 text-sm leading-7 text-neutral-600">
+          The requested collection slug does not exist in the current drop data.
+        </p>
+      </section>
+    )
+  }
+</StorefrontLayout>
